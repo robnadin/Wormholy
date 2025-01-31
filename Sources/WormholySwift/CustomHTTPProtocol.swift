@@ -8,6 +8,8 @@
 import Foundation
 
 public class CustomHTTPProtocol: URLProtocol {
+    
+    static var ignoredSchemes = [String]()
     static var ignoredHosts = [String]()
     
     struct Constants {
@@ -87,9 +89,15 @@ public class CustomHTTPProtocol: URLProtocol {
     /// Inspects the request to see if the host has not been blacklisted and can be handled by this URL protocol.
     /// - Parameter request: The request being processed.
     private class func shouldHandleRequest(_ request: URLRequest) -> Bool {
-        guard let host = request.url?.host else { return false }
+        if let scheme = request.url?.scheme, ignoredSchemes.lazy.contains(scheme) {
+            return false
+        }
         
-        return CustomHTTPProtocol.ignoredHosts.filter({ host.hasSuffix($0) }).isEmpty
+        if let host = request.url?.host, ignoredHosts.lazy.contains(where: { host.hasSuffix($0) }) {
+            return false
+        }
+        
+        return true
     }
     
     deinit {

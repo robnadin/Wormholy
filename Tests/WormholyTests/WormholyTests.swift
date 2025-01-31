@@ -2,22 +2,32 @@
 //  WormholyTests.swift
 //  Wormholy
 //
-//  Created by Paolo Musolino on {TODAY}.
+//  Created by Paolo Musolino on 9/01/2018.
 //  Copyright © 2018 Wormholy. All rights reserved.
 //
 
 import Foundation
-import XCTest
-import Wormholy
+import Testing
 
-class WormholyTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //// XCTAssertEqual(Wormholy().text, "Hello, World!")
+@testable import WormholySwift
+
+@Suite(.serialized)
+final class WormholyTests {
+    
+    deinit {
+        Wormholy.ignoredHosts = []
+        Wormholy.ignoredSchemes = []
     }
     
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+    @Test
+    func ignoredSchemes() {
+        Wormholy.ignoredSchemes = ["foo", "bar"]
+        #expect(CustomHTTPProtocol.ignoredSchemes == ["foo", "bar"])
+    }
+    
+    @Test
+    func ignoredHosts() {
+        Wormholy.ignoredHosts = ["foo.bar", "baz.qux"]
+        #expect(CustomHTTPProtocol.ignoredHosts == ["foo.bar", "baz.qux"])
+    }
 }

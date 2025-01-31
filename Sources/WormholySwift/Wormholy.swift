@@ -12,6 +12,13 @@ import SwiftUI
 
 public class Wormholy: NSObject
 {
+    /// Schemes that will be ignored from being recorded
+    ///
+    @objc public static var ignoredSchemes: [String] {
+        get { return CustomHTTPProtocol.ignoredSchemes }
+        set { CustomHTTPProtocol.ignoredSchemes = newValue }
+    }
+    
     /// Hosts that will be ignored from being recorded
     ///
     @objc public static var ignoredHosts: [String] {

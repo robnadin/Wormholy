@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "B2D47C72-4BAA-4025-A8F3-195C4F810A97",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "WormholyTests",
+        "name" : "WormholyTests"
+      }
+    }
+  ],
+  "version" : 1
+}
